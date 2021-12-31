@@ -1,8 +1,5 @@
-import warnings 
-with warnings.catch_warnings():
-    warnings.filterwarnings("ignore",category=DeprecationWarning)
-    import pandas as pd
-
+import pandas as pd
+from pandas.api.types import is_list_like
 import numpy as np
 import streamlit as st
 from streamlit_disqus import st_disqus
