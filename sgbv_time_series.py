@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import altair as alt
 import seaborn as sns
 pd.core.common.is_list_like = pd.api.types.is_list_like
+from pandas.api.types import is_list_like
 from causalimpact import CausalImpact
 from openpyxl import load_workbook
 import datetime
