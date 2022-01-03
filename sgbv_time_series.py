@@ -1,6 +1,6 @@
 import pandas as pd
-from pandas.api.types import is_list_like
-pd.core.common.is_list_like = pd.api.types.is_list_like
+#from pandas.api.types import is_list_like
+#pd.core.common.is_list_like = pd.api.types.is_list_like
 
 import numpy as np
 import streamlit as st
