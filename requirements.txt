@@ -16,5 +16,5 @@ statsmodels
 scikit-learn==1.0.1
 scipy==1.7.3
 pmdarima==1.8.4
-tensorflow==2.7.0
+tensorflow==2.12.0
 jsonschema==3.2
