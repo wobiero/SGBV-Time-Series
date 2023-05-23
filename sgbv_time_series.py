@@ -198,16 +198,16 @@ if st.sidebar.checkbox('Data summary'):
         df1 = df.pivot(columns="month", values=outcome).apply(lambda x: x.dropna().reset_index(drop = True))
         df2 = df.pivot(columns="year", values=outcome).apply(lambda x: x.dropna().reset_index(drop = True))
 
-        fig, axes = plt.subplots(1,2, figsize=(20,7), dpi=150)
-        for x in range(df.month.min(), df.month.max() + 1):
-            sns.kdeplot(data=df1[x], shade=True, ax=axes[0])
+#         fig, axes = plt.subplots(1,2, figsize=(20,7), dpi=150)
+#         for x in range(df.month.min(), df.month.max() + 1):
+#             sns.kdeplot(data=df1[x], shade=True, ax=axes[0])
 
-        for x in range(df.year.min(), df.year.max() + 1):
-            sns.kdeplot(data=df2[x], shade=True, ax=axes[1])
+#         for x in range(df.year.min(), df.year.max() + 1):
+#             sns.kdeplot(data=df2[x], shade=True, ax=axes[1])
 
-        plt.suptitle(f"Monthly and annual kdensity plots {outcome}")
-        expander_kde = st.expander(f"Kdensity plots {outcome}")
-        expander_kde.write(fig)
+#         plt.suptitle(f"Monthly and annual kdensity plots {outcome}")
+#         expander_kde = st.expander(f"Kdensity plots {outcome}")
+#         expander_kde.write(fig)
 
 
     if st.sidebar.checkbox("Show Facility Map", False):
