@@ -262,16 +262,16 @@ if st.sidebar.checkbox("Technical checks"):
     df["ewm"] = df[outcome].ewm(span=12, adjust=False).mean()
     df["date"] = df.index
 
-    fig2 = alt.Chart(df).mark_line().transform_fold(
-        fold=['ewm',"12-month-MA", "6-month-MA", 'Sexual Violence'],
-        as_=['variable', 'value']
-    ).encode(
-        x='yearmonth(date):T',
-        y='max(value):Q',
-        color='variable:N'
-    ).interactive()
-    expander_moving_averages = st.expander(f"Moving Averages Plot: {outcome}")
-    expander_moving_averages.write(fig2)
+#     fig2 = alt.Chart(df).mark_line().transform_fold(
+#         fold=['ewm',"12-month-MA", "6-month-MA", 'Sexual Violence'],
+#         as_=['variable', 'value']
+#     ).encode(
+#         x='yearmonth(date):T',
+#         y='max(value):Q',
+#         color='variable:N'
+#     ).interactive()
+#     expander_moving_averages = st.expander(f"Moving Averages Plot: {outcome}")
+#     expander_moving_averages.write(fig2)
 
     # Check number of lags using KPSS test
     def kpss_test(series, **kw):
