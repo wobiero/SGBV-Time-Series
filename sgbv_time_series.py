@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 from streamlit_disqus import st_disqus
 import matplotlib.pyplot as plt
-import jsonschema as js
+#import jsonschema as js
 import altair as alt
 import seaborn as sns
 
@@ -13,7 +13,7 @@ import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 from causalimpact import CausalImpact
-from openpyxl import load_workbook
+#from openpyxl import load_workbook
 import datetime
 from datetime import datetime, date, time
 from dateutil.relativedelta import relativedelta
@@ -21,7 +21,7 @@ import calendar
 
 import os
 import os.path
-from io import StringIO, BytesIO
+#from io import StringIO, BytesIO
 import base64
 from PIL import Image
 
