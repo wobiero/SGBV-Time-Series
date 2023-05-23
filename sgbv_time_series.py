@@ -456,16 +456,16 @@ if st.sidebar.checkbox('Time series analyses'):
             st.write(shw_results)
 
 
-        fig2 = alt.Chart(shw_results).mark_line().transform_fold(
-            fold=["observed", "shw_predictions"],
-            as_=['variable', 'value']
-        ).encode(
-            x='yearmonth(date):T',
-            y='max(value):Q',
-            color='variable:N'
-        ).interactive()
-        expander_shw_graph = st.expander(f"Seasonal Holt-Winters Plot: {outcome}")
-        expander_shw_graph.write(fig2)
+#         fig2 = alt.Chart(shw_results).mark_line().transform_fold(
+#             fold=["observed", "shw_predictions"],
+#             as_=['variable', 'value']
+#         ).encode(
+#             x='yearmonth(date):T',
+#             y='max(value):Q',
+#             color='variable:N'
+#         ).interactive()
+#         expander_shw_graph = st.expander(f"Seasonal Holt-Winters Plot: {outcome}")
+#         expander_shw_graph.write(fig2)
 
         cumulative_observed = shw_results["observed"].sum().round()
         cumulative_predicted = shw_results["shw_predictions"].sum()
