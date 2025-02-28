@@ -163,11 +163,6 @@ if st.sidebar.checkbox('Data summary'):
     if st.sidebar.checkbox("Exploratory plots"):
         df["year"] = pd.DatetimeIndex(df.index).year.astype(int)
         df["month"] = pd.DatetimeIndex(df.index).month.astype(int)
-#         fig, axes = plt.subplots(1, 2, figsize=(20,7), dpi=150)
-#         sns.boxplot(x="month", y=outcome, data=df)
-#         sns.boxplot(x="year", y=outcome, data=df, ax=axes[0])
-#         plt.suptitle(f"Trends and monthly variation in {outcome}", fontsize=24)
-#         st.write(fig)
         note = f"""
         The monthly boxplot indicates monthly variation in {outcome} and may indicate
         seasonality. The annual boxplot indicates changes in the long term trends in
@@ -197,18 +192,6 @@ if st.sidebar.checkbox('Data summary'):
 
         df1 = df.pivot(columns="month", values=outcome).apply(lambda x: x.dropna().reset_index(drop = True))
         df2 = df.pivot(columns="year", values=outcome).apply(lambda x: x.dropna().reset_index(drop = True))
-
-#         fig, axes = plt.subplots(1,2, figsize=(20,7), dpi=150)
-#         for x in range(df.month.min(), df.month.max() + 1):
-#             sns.kdeplot(data=df1[x], shade=True, ax=axes[0])
-
-#         for x in range(df.year.min(), df.year.max() + 1):
-#             sns.kdeplot(data=df2[x], shade=True, ax=axes[1])
-
-#         plt.suptitle(f"Monthly and annual kdensity plots {outcome}")
-#         expander_kde = st.expander(f"Kdensity plots {outcome}")
-#         expander_kde.write(fig)
-
 
     if st.sidebar.checkbox("Show Facility Map", False):
         st.map(coords)
@@ -261,17 +244,6 @@ if st.sidebar.checkbox("Technical checks"):
     df["18-month-MA"]= df[outcome].rolling(window=18).mean()
     df["ewm"] = df[outcome].ewm(span=12, adjust=False).mean()
     df["date"] = df.index
-
-#     fig2 = alt.Chart(df).mark_line().transform_fold(
-#         fold=['ewm',"12-month-MA", "6-month-MA", 'Sexual Violence'],
-#         as_=['variable', 'value']
-#     ).encode(
-#         x='yearmonth(date):T',
-#         y='max(value):Q',
-#         color='variable:N'
-#     ).interactive()
-#     expander_moving_averages = st.expander(f"Moving Averages Plot: {outcome}")
-#     expander_moving_averages.write(fig2)
 
     # Check number of lags using KPSS test
     def kpss_test(series, **kw):
@@ -370,18 +342,6 @@ if st.sidebar.checkbox("Technical checks"):
     algo = rpt.Binseg(model=model).fit(data_points)
     my_bkps = algo.predict(n_bkps=6)
     c_point.reset_index(inplace=True)
-#     fig, ax = plt.subplots(figsize=(12,5))
-#     plt.plot(c_point.index, c_point[outcome], label="Observed")
-#     plt.axvline(my_bkps[0], ls="--", color="k")
-#     plt.axvline(my_bkps[1], ls="--", color="k")
-#     plt.axvline(my_bkps[2], ls="--", color="k")
-#     plt.axvline(my_bkps[3], ls="--", color="k")
-#     plt.axvline(my_bkps[4], ls="--", color="k")
-#     plt.axvline(my_bkps[5], ls="--", color="k", label="Breakpoint")
-#     plt.legend()
-#     plt.xlabel("""Months
-#     Note: The breakpoints are detected using a binary segmentation search algorithm""")
-#     plt.title(f"Structural breaks: {outcome}")
 
     c_point["date2"] = pd.to_datetime(c_point["date2"])
     my_bkps = [x - 1 for x in my_bkps]
@@ -440,13 +400,6 @@ if st.sidebar.checkbox('Time series analyses'):
                                        seasonal_periods=12).fit()
         predictions = shw_model.forecast(post_months)
 
-#         fig, ax = plt.subplots(figsize=(12,5), dpi=150)
-#         plt.plot(df.index[:pre_months], df[outcome][:pre_months])
-#         plt.plot(df.index[-pre_months:], df[outcome][-pre_months:])
-#         predictions.plot(label="SHW prediction")
-#         plt.legend()
-#         st.write(fig)
-
         observed = df[outcome][-post_months:]
         shw_results = pd.concat([observed, predictions], axis=1)
         shw_results.columns = ["observed", "shw_predictions"]
@@ -455,17 +408,6 @@ if st.sidebar.checkbox('Time series analyses'):
         if st.checkbox("Show Seasonal Holt Winters Results", False):
             st.write(shw_results)
 
-
-#         fig2 = alt.Chart(shw_results).mark_line().transform_fold(
-#             fold=["observed", "shw_predictions"],
-#             as_=['variable', 'value']
-#         ).encode(
-#             x='yearmonth(date):T',
-#             y='max(value):Q',
-#             color='variable:N'
-#         ).interactive()
-#         expander_shw_graph = st.expander(f"Seasonal Holt-Winters Plot: {outcome}")
-#         expander_shw_graph.write(fig2)
 
         cumulative_observed = shw_results["observed"].sum().round()
         cumulative_predicted = shw_results["shw_predictions"].sum()
